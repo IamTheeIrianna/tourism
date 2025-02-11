@@ -60,7 +60,7 @@ public class TouristRepository {
     public ArrayList getTourAttractionsDescription(String description){
         return touristAttractionsList;
     }
-    public ArrayList getTouristAttractionsList(){
+    public ArrayList<TouristAttraction> getTouristAttractionsList(){
         return touristAttractionsList;
     }
 }

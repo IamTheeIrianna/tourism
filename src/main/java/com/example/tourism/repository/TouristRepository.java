@@ -1,6 +1,6 @@
-package repository;
+package com.example.tourism.repository;
 
-import model.TouristAttraction;
+import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 //create , read , update ,deleteTourAttraction

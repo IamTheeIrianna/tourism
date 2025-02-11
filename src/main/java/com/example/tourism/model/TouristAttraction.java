@@ -1,4 +1,4 @@
-package model;
+package com.example.tourism.model;
 
 public class TouristAttraction {
     private String name;

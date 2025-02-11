@@ -1,8 +1,8 @@
-package service;
+package com.example.tourism.service;
 
-import model.TouristAttraction;
+import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Service;
-import repository.TouristRepository;
+import com.example.tourism.repository.TouristRepository;
 
 import java.util.ArrayList;
 
@@ -32,5 +32,6 @@ public class TouristService {
     public TouristAttraction removeTourAttraction(String name){
         return repository.removeTourAttraction(name);
     }
+
 
 }

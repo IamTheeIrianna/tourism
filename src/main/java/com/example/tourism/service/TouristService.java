@@ -13,15 +13,19 @@ public class TouristService {
     public TouristService(){
         repository = new TouristRepository();
     }
+
     public ArrayList<TouristAttraction>findAll(){
         return repository.getTouristAttractionsList();
     }
-    public ArrayList getTourAttractionsName(String name){
+
+    public TouristAttraction getTourAttractionsName(String name){
         return repository.getTourAttractionsName(name);
     }
+
     public ArrayList getTourAttractionsDescription(String description){
         return repository.getTourAttractionsDescription(description);
     }
+
     public TouristAttraction addNewAttraction(TouristAttraction tourAttraction){
         return repository.addNewAttraction(tourAttraction);
     }

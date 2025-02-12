@@ -11,7 +11,7 @@ public class TouristRepository {
     private ArrayList<TouristAttraction>touristAttractionsList = new ArrayList<>();
 
     public TouristRepository(){
-        touristAttractionsList.add(new TouristAttraction("Kings Garden ", " "));
+        touristAttractionsList.add(new TouristAttraction("kongehaven", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
@@ -54,8 +54,13 @@ public class TouristRepository {
             touristAttractionsList.remove(tourAttraction);
         } return tourAttraction;
     }
-    public ArrayList getTourAttractionsName(String name){
-        return touristAttractionsList;
+    public TouristAttraction getTourAttractionsName(String name){
+        for (TouristAttraction touristAttraction : touristAttractionsList){
+            if(touristAttraction.getName().equalsIgnoreCase(name)){
+                return touristAttraction;
+            }
+        }
+        return null;
     }
     public ArrayList getTourAttractionsDescription(String description){
         return touristAttractionsList;

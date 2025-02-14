@@ -1,6 +1,7 @@
 package com.example.tourism.controller;
 
 import com.example.tourism.model.TouristAttraction;
+import com.example.tourism.repository.TouristRepository;
 import com.example.tourism.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/attractions")
@@ -21,16 +23,17 @@ public class TouristController {
 
     public TouristController()
     {
-        service = new TouristService();
+        service = new TouristService(new TouristRepository());
     }
 
     @GetMapping("")
-    public ResponseEntity<ArrayList<TouristAttraction>> getAll()
+    public ResponseEntity<List<TouristAttraction>> getAll()
     {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+        List<TouristAttraction> t = service.getAllTouristAttractionsList();
+        return new ResponseEntity<>(t, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/")
     public ResponseEntity<TouristAttraction> getOne(@RequestParam(value = "attName", defaultValue = "tivoli") String name)
     {
         return new ResponseEntity<>(service.getTourAttractionsName(name), HttpStatus.OK);

@@ -1,11 +1,9 @@
 package com.example.tourism.service;
 
-import com.example.tourism.controller.TouristController;
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Service;
 import com.example.tourism.repository.TouristRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,14 +14,21 @@ public class TouristService {
     public TouristService(TouristRepository repository){
         this.repository = repository;
     }
-
+    //------------------FIND ALL LIST
     public List<TouristAttraction> getAllTouristAttractionsList(){
         return TouristRepository.getAllTouristAttractionsList();
     }
-    //------------------FIND BY NAME
-    public TouristAttraction getTourAttractionsName(String name){
-        return repository.getTourAttractionsName(name);
+    //------------------FIND BY NAME--------------
+    public TouristAttraction findTourAttractionName(String name){
+        TouristAttraction findTourAttraction = null;
+        for(TouristAttraction tourAttraction : TouristRepository.getAllTouristAttractionsList()){
+            if(tourAttraction.getName().equalsIgnoreCase(name)){
+                findTourAttraction = tourAttraction;
+            }
+        }
+        return findTourAttraction;
     }
+
     //------------------DESCRIPTION
     public List getTourAttractionsDescription(String description){
         return repository.getTourAttractionsDescription(description);
@@ -38,7 +43,8 @@ public class TouristService {
     }
     //------------------REMOVE
     public TouristAttraction removeTourAttraction(String name){
-        return repository.removeTourAttraction(name);
+        TouristAttraction tourAttraction = findTourAttractionName(name);
+        return repository.removeTourAttraction(tourAttraction);
     }
 
 

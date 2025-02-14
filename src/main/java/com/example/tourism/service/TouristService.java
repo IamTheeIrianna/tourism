@@ -21,14 +21,8 @@ public class TouristService {
         return TouristRepository.getAllTouristAttractionsList();
     }
     //------------------FIND BY NAME
-    public TouristAttraction findTourAttractionName(String name){
-        TouristAttraction findTourAttraction = null;
-        for(TouristAttraction touristAttraction : TouristRepository.getAllTouristAttractionsList()){
-            if(touristAttraction.getName().equalsIgnoreCase(name)){
-                findTourAttraction = touristAttraction;
-            }
-        }
-        return findTourAttraction;
+    public TouristAttraction getTourAttractionsName(String name){
+        return repository.getTourAttractionsName(name);
     }
     //------------------DESCRIPTION
     public List getTourAttractionsDescription(String description){

@@ -1,6 +1,7 @@
 package com.example.tourism.controller;
 
 import com.example.tourism.model.TouristAttraction;
+import com.example.tourism.repository.TouristRepository;
 import com.example.tourism.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,48 +11,52 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/attractions")
 public class TouristController {
 
-    private final TouristService touristService;
+    public TouristService service;
 
-    public TouristController(TouristService touristService) {
-        this.touristService = touristService;
-    }
-    //-------------------------" "-------------------------------
-    @GetMapping("")
-    public ResponseEntity<List<TouristAttraction>> getAllTouristAttractionsList() {
-        List<TouristAttraction>touristAttractions = touristService.getAllTouristAttractionsList();
-        return new ResponseEntity<>(touristAttractions, HttpStatus.OK);
-    }
-    //----------------------------SEARCH by name----------------------------
-    @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getTourName(@RequestParam(value = "attName", defaultValue = "tivoli") String name)
+    public TouristController()
     {
-        return new ResponseEntity<>(touristService.findTourAttractionName(name), HttpStatus.OK);
+        service = new TouristService(new TouristRepository());
     }
-    //------------------------ADD--------------------------------
+
+
+    @GetMapping("")
+    public ResponseEntity<List<TouristAttraction>> getOne(@RequestParam(value = "attName", defaultValue = "") String name)
+    {
+        if (name.isEmpty()) {
+            List<TouristAttraction> t = service.getAllTouristAttractionsList();
+            return new ResponseEntity<>(t, HttpStatus.OK);
+        }
+        List<TouristAttraction> e = new ArrayList<>();
+        e.add(service.getTourAttractionsName(name));
+        return new ResponseEntity<>(e, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<TouristAttraction> addAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") String name,@RequestParam(value = "attDesc", defaultValue = "tom") String desc)
     {
         TouristAttraction t = new TouristAttraction(name, desc);
-        return new ResponseEntity<>(touristService.addNewAttraction(t), HttpStatus.OK);
+        return new ResponseEntity<>(service.addNewAttraction(t), HttpStatus.OK);
     }
-    //-------------------------DELETE-------------------------------
+
     @PostMapping("/delete")
     public ResponseEntity<TouristAttraction> deleteAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") String name)
     {
-        return new ResponseEntity(touristService.removeTourAttraction(name), HttpStatus.OK);
+        return new ResponseEntity(service.removeTourAttraction(name), HttpStatus.OK);
     }
-    //---------------------------UPDATE-----------------------------
+
     @PostMapping("/update")
     public ResponseEntity<TouristAttraction> updateAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") String name,@RequestParam(value = "attDesc", defaultValue = "tom") String desc)
     {
         TouristAttraction t = new TouristAttraction(name, desc);
-        return new ResponseEntity<>(touristService.updateTourAttraction(t), HttpStatus.OK);
+        return new ResponseEntity<>(service.updateTourAttraction(t), HttpStatus.OK);
     }
 
 

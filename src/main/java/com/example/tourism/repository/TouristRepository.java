@@ -3,16 +3,20 @@ package com.example.tourism.repository;
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
+import java.util.List;
 //create , read , update ,deleteTourAttraction
 
 
 @Repository
 public class TouristRepository {
-    private ArrayList<TouristAttraction>touristAttractionsList = new ArrayList<>();
+    private static final List<TouristAttraction>touristAttractionsList = new ArrayList<>();
 
-    public TouristRepository(){
-        touristAttractionsList.add(new TouristAttraction("kongehaven", " "));
-        touristAttractionsList.add(new TouristAttraction(" ", " "));
+public TouristRepository(){
+    createNewTourAttraction();
+}
+    public void createNewTourAttraction(){
+        touristAttractionsList.add(new TouristAttraction("Kongens Have", "the kings garden "));
+        touristAttractionsList.add(new TouristAttraction("Tivoli ", "Amusement park in the center of Copenhagen"));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
 
@@ -26,12 +30,12 @@ public class TouristRepository {
         touristAttractionsList.add(tourAttraction);
         return tourAttraction;
     }
-
+    //------------------------ FIND ALL
     //C(R)UD. read all attractions
-    public ArrayList<TouristAttraction> findAll() {
+    public static List<TouristAttraction> getAllTouristAttractionsList() {
         return touristAttractionsList;
     }
-    //CR(U)D
+    //------------------------//CR(U)D UPDATE
     public TouristAttraction updateTourAttraction(TouristAttraction tourAttraction){
        for(int i = 0; i< touristAttractionsList.size(); i++){
            if(touristAttractionsList.get(i).getName().equalsIgnoreCase(tourAttraction.getName())){
@@ -42,7 +46,7 @@ public class TouristRepository {
        return null;
     }
 
-    //D. remove tourist attraction method
+    //D. remove tourist attraction method//------------------------REMOVE
     public TouristAttraction removeTourAttraction(String name){
         TouristAttraction tourAttraction = null;
         for (TouristAttraction touristAttraction : touristAttractionsList){
@@ -54,6 +58,7 @@ public class TouristRepository {
             touristAttractionsList.remove(tourAttraction);
         } return tourAttraction;
     }
+    //------------------------
     public TouristAttraction getTourAttractionsName(String name){
         for (TouristAttraction touristAttraction : touristAttractionsList){
             if(touristAttraction.getName().equalsIgnoreCase(name)){
@@ -62,10 +67,10 @@ public class TouristRepository {
         }
         return null;
     }
-    public ArrayList getTourAttractionsDescription(String description){
+    //------------------------DESCRIPTION
+    public List getTourAttractionsDescription(String description){
         return touristAttractionsList;
     }
-    public ArrayList<TouristAttraction> getTouristAttractionsList(){
-        return touristAttractionsList;
-    }
+
+
 }

@@ -34,7 +34,6 @@ public class TouristController {
             List<TouristAttraction> t = service.getAllTouristAttractionsList();
             return new ResponseEntity<>(t, HttpStatus.OK);
         }
-        System.out.println(name);
         List<TouristAttraction> e = new ArrayList<>();
         e.add(service.getTourAttractionsName(name));
         return new ResponseEntity<>(e, HttpStatus.OK);

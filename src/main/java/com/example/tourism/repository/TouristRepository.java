@@ -64,7 +64,6 @@ public TouristRepository(){
     public TouristAttraction getTourAttractionsName(String name){
         for (TouristAttraction touristAttraction : touristAttractionsList){
             if(touristAttraction.getName().equalsIgnoreCase(name)){
-                System.out.println(name);
                 return touristAttraction;
             }
         }

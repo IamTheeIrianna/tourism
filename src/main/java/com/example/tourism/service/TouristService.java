@@ -22,13 +22,7 @@ public class TouristService {
     }
     //------------------FIND BY NAME
     public TouristAttraction getTourAttractionsName(String name){
-        TouristAttraction findTourAttraction = null;
-        for(TouristAttraction touristAttraction : TouristRepository.getAllTouristAttractionsList()){
-            if(touristAttraction.getName().equalsIgnoreCase(name)){
-                findTourAttraction = touristAttraction;
-            }
-        }
-        return findTourAttraction;
+        return repository.getTourAttractionsName(name);
     }
     //------------------DESCRIPTION
     public List getTourAttractionsDescription(String description){

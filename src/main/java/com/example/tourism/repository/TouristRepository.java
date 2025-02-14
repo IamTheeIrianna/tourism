@@ -2,6 +2,8 @@ package com.example.tourism.repository;
 
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
+
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 //create , read , update ,deleteTourAttraction
@@ -16,7 +18,7 @@ public TouristRepository(){
 }
     public void createNewTourAttraction(){
         touristAttractionsList.add(new TouristAttraction("Kongens Have", "the kings garden "));
-        touristAttractionsList.add(new TouristAttraction("Tivoli ", "Amusement park in the center of Copenhagen"));
+        touristAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen"));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
 
@@ -62,6 +64,7 @@ public TouristRepository(){
     public TouristAttraction getTourAttractionsName(String name){
         for (TouristAttraction touristAttraction : touristAttractionsList){
             if(touristAttraction.getName().equalsIgnoreCase(name)){
+                System.out.println(name);
                 return touristAttraction;
             }
         }

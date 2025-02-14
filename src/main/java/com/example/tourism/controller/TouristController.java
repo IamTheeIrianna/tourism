@@ -28,16 +28,16 @@ public class TouristController {
 
 
     @GetMapping("")
-    public ResponseEntity<List<TouristAttraction>> getOne(@RequestParam(value = "attName", defaultValue = "_") String name)
+    public ResponseEntity<List<TouristAttraction>> getOne(@RequestParam(value = "attName", defaultValue = "") String name)
     {
-        if (!Objects.equals(name, "_")) {
-            List<TouristAttraction> e = new ArrayList<>();
-            e.add(service.getTourAttractionsName(name));
-            return new ResponseEntity<>(e, HttpStatus.OK);
+        if (name.isEmpty()) {
+            List<TouristAttraction> t = service.getAllTouristAttractionsList();
+            return new ResponseEntity<>(t, HttpStatus.OK);
         }
-        List<TouristAttraction> t = service.getAllTouristAttractionsList();
-        return new ResponseEntity<>(t, HttpStatus.OK);
-
+        System.out.println(name);
+        List<TouristAttraction> e = new ArrayList<>();
+        e.add(service.getTourAttractionsName(name));
+        return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
     @PostMapping("/add")

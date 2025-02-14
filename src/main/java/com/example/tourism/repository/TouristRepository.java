@@ -16,7 +16,7 @@ public TouristRepository(){
 }
     public void createNewTourAttraction(){
         touristAttractionsList.add(new TouristAttraction("Kongens Have", "the kings garden "));
-        touristAttractionsList.add(new TouristAttraction("Tivoli ", "Amusement park in the center of Copenhagen"));
+        touristAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen"));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
         touristAttractionsList.add(new TouristAttraction(" ", " "));
 

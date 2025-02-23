@@ -1,5 +1,5 @@
 package com.example.tourism.repository;
-
+//b.Opret klassen TouristRepository i repository package med annoteringen @Repository.
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -8,12 +8,14 @@ import java.util.List;
 
 @Repository
 public class TouristRepository {
+    //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
     private static final List<TouristAttraction>touristAttractionsList = new ArrayList<>();
 
     public TouristRepository(){
         createNewTourAttraction();
     }
 
+    //Opret et par TouristAttraction objekter, som tilføjes til denne ArrayList.
     public void createNewTourAttraction(){
         touristAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. "));
         touristAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen."));
@@ -43,7 +45,7 @@ public class TouristRepository {
     }
     //------------------------ FIND ALL
     //C(R)UD. read all attractions
-    public static List<TouristAttraction> getAllTouristAttractionsList() {
+    public List<TouristAttraction> getAllTouristAttractionsList() {
         return touristAttractionsList;
     }
     //------------------------//CR(U)D UPDATE
@@ -58,9 +60,16 @@ public class TouristRepository {
     }
 
     //D. remove tourist attraction method//------------------------REMOVE
+    /*
+    // old method
     public TouristAttraction removeTourAttraction(TouristAttraction tourAttraction){
         touristAttractionsList.remove(tourAttraction);
         return tourAttraction;
+    }
+     */
+
+    public boolean removeTourAttraction(String name){
+        return touristAttractionsList.removeIf(attraction -> attraction.getName().equalsIgnoreCase(name));
     }
 
     //------------------------DESCRIPTION

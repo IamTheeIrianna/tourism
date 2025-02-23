@@ -1,17 +1,16 @@
 package com.example.tourism.controller;
 
+import org.springframework.ui.Model;
 import com.example.tourism.model.TouristAttraction;
 import com.example.tourism.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//Opret en TouristController klasse i controller package med annoteringen @Controller, samt @RequestMapping(”attractions”).
+//Lav nedenstående CRUD endpoints med funktionalitet, der alle returnerer et ResponseEntity.
 @Controller
 @RequestMapping("/attractions")
 public class TouristController {
@@ -21,15 +20,19 @@ public class TouristController {
     public TouristController(TouristService touristService) {
         this.touristService = touristService;
     }
+
+
     //-------------------------" "-------------------------------
     @GetMapping("")
-    public ResponseEntity<List<TouristAttraction>> getAllTouristAttractionsList() {
-        List<TouristAttraction>touristAttractions = touristService.getAllTouristAttractionsList();
-        return new ResponseEntity<>(touristAttractions, HttpStatus.OK);
+    public String getAllTouristAttractionsList(Model model) {
+        List<TouristAttraction> touristAttractions = touristService.getAllTouristAttractionsList();
+        model.addAttribute("attractions", touristAttractions);
+        return "attractionsList";
     }
+
     //----------------------------SEARCH by name----------------------------
     @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getTourAttractionName(@RequestParam(value = "attName", defaultValue = "tivoli") String name)
+    public ResponseEntity<TouristAttraction> getTourAttractionName(@PathVariable String name)
     {
         return new ResponseEntity<>(touristService.findTourAttractionName(name), HttpStatus.OK);
     }
@@ -39,6 +42,13 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc);
         return new ResponseEntity<>(touristService.addNewAttraction(t), HttpStatus.OK);
     }
+    /*
+     @PostMapping("/add")
+    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction){
+        TouristAttraction newTouristAttraction = touristService.addTouristAttraction(touristAttraction);
+        return new ResponseEntity<>(newTouristAttraction, HttpStatus.CREATED);
+    }
+    */
     //-------------------------DELETE-------------------------------
     @PostMapping("/delete")
     public ResponseEntity<TouristAttraction> deleteAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") String name){

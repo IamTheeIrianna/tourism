@@ -16,12 +16,12 @@ public class TouristService {
     }
     //------------------FIND ALL LIST
     public List<TouristAttraction> getAllTouristAttractionsList(){
-        return TouristRepository.getAllTouristAttractionsList();
+        return repository.getAllTouristAttractionsList();
     }
     //------------------FIND BY NAME--------------
     public TouristAttraction findTourAttractionName(String name){
         TouristAttraction findTourAttraction = null;
-        for(TouristAttraction tourAttraction : TouristRepository.getAllTouristAttractionsList()){
+        for(TouristAttraction tourAttraction : repository.getAllTouristAttractionsList()){
             if(tourAttraction.getName().equalsIgnoreCase(name)){
                 findTourAttraction = tourAttraction;
             }
@@ -29,10 +29,7 @@ public class TouristService {
         return findTourAttraction;
     }
 
-    //------------------DESCRIPTION
-    public List getTourAttractionsDescription(String description){
-        return repository.getTourAttractionsDescription(description);
-    }
+
     //------------------ADD
     public TouristAttraction addNewAttraction(TouristAttraction tourAttraction){
         return repository.addNewAttraction(tourAttraction);
@@ -42,9 +39,14 @@ public class TouristService {
         return repository.updateTourAttraction(tourAttraction);
     }
     //------------------REMOVE
-    public TouristAttraction removeTourAttraction(String name){
+    /*public TouristAttraction removeTourAttraction(String name){
         TouristAttraction tourAttraction = findTourAttractionName(name);
         return repository.removeTourAttraction(tourAttraction);
+    }
+    */
+
+    public boolean removeTourAttraction(String name){
+        return repository.removeTourAttraction(name);
     }
 
 

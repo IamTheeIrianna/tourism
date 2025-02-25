@@ -7,17 +7,18 @@
 
 </head>
 <body>
-<form th:action="@{/attractions/save}" th:object="${newAttraction}" method="post">
-    <label>Navn:</label>
-    <input type="text" th:field="*{name}"><br>
+<form th:action="@{/attractions/save}" th:method="post" th:object="${attraction}" >
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" id="name" required><br>
 
-    <label>Description:</label>
-    <textarea th:field="*{description}"></textarea><br>
+    <label for="description">Description:</label>
+    <textarea th:field="*{description}" id="description" required></textarea><br>
 
-    <label>City:</label>
-    <select th:field="*{city}">
-        <option th:each="city : ${cities}" th:value="${city}" th:text="${city}"></option>
-    </select><br>
+
+    <label for="city"> City:</label>
+    <input type="text" th:field="*{city}" id="city" required><br>
+
+
 
     <label>Tags:</label>
     <div th:each="tag : ${tags}">

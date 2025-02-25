@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Tourist Attractions</h1>
+<ul>
+    <li th:each="attraction : ${attractions}">
+        <span th:text="${attraction.name}"></span> - <span th:text="${attraction.description}"></span>
+    </li>
+</ul>
+
+<table style="width:50%">
+    <tr>
+        <th>Navn</th>
+        <th>Beskrivelse</th>
+    </tr>
+
+    <tr>
+        <td>Tivoli</td>
+        <td>Copenhagen's central theme park</td>
+    </tr>
+
+    <tr>
+        <td>Kongens Have</td>
+        <td>The Kings Garden, in the center of the city</td>
+    </tr>
+
+    <tr>
+        <td>SMK</td>
+        <td>Statens Museum for Kunst</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

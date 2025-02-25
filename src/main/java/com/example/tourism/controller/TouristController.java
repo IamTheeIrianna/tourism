@@ -32,7 +32,7 @@ public class TouristController {
 
     //----------------------------SEARCH by name----------------------------
     @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getTourAttractionName(@PathVariable String name)
+    public ResponseEntity<TouristAttraction> SearchAttraction(@PathVariable String name)
     {
         return new ResponseEntity<>(touristService.findTourAttractionName(name), HttpStatus.OK);
     }
@@ -42,13 +42,6 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc);
         return new ResponseEntity<>(touristService.addNewAttraction(t), HttpStatus.OK);
     }
-    /*
-     @PostMapping("/add")
-    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction){
-        TouristAttraction newTouristAttraction = touristService.addTouristAttraction(touristAttraction);
-        return new ResponseEntity<>(newTouristAttraction, HttpStatus.CREATED);
-    }
-    */
     //-------------------------DELETE-------------------------------
     @PostMapping("/delete")
     public ResponseEntity<TouristAttraction> deleteAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") String name){
@@ -61,6 +54,8 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc);
         return new ResponseEntity<>(touristService.updateTourAttraction(t), HttpStatus.OK);
     }
+
+    //DID SOMETHING
 
 
 }

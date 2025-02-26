@@ -9,18 +9,19 @@ import java.util.List;
 @Repository
 public class TouristRepository {
     //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
-    private static final List<TouristAttraction>touristAttractionsList = new ArrayList<>();
+    List<TouristAttraction>touristAttractionsList;
 
     public TouristRepository(){
+        this.touristAttractionsList = new ArrayList<>();
         createNewTourAttraction();
     }
 
     //Opret et par TouristAttraction objekter, som tilføjes til denne ArrayList.
     public void createNewTourAttraction(){
-        touristAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. "));
-        touristAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen."));
-        touristAttractionsList.add(new TouristAttraction(" ", " "));
-        touristAttractionsList.add(new TouristAttraction(" ", " "));
+        touristAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. ", "Copenhagen", new ArrayList()));
+        touristAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen.", "Copenhagen", new ArrayList()));
+        touristAttractionsList.add(new TouristAttraction(" ", " ", "Copenhagen", new ArrayList()));
+        touristAttractionsList.add(new TouristAttraction(" ", " ", "Copenhagen", new ArrayList()));
 
     }
     //-----------------------C. add/create new tourist attraction method
@@ -40,8 +41,13 @@ public class TouristRepository {
     }
     */
 
-    public String findTourAttractionName(TouristAttraction touristAttraction){
-        return touristAttraction.getName();
+    public String getTourName(String name){
+        for (TouristAttraction touristAttraction : touristAttractionsList){
+            if(touristAttraction.getName().equalsIgnoreCase(name)){
+                return touristAttraction.getName();
+            }
+        }
+        return null;
     }
     //------------------------ FIND ALL
     //C(R)UD. read all attractions

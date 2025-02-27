@@ -11,7 +11,6 @@ public class TouristAttraction {
     private String description;
     private String city;
     private List<Tags> tags;
-
     //constructor overloading
     //issue: the model doe snot provide a no arguement constructos, which may be necessary for framework or libraries
     // solution: add an no arg constructor: public TouristAttraction(){}

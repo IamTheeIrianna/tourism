@@ -35,12 +35,25 @@ public class TouristController {
         return "attractionsList";
     }
 
+
     //----------------------------SEARCH by name----------------------------
+    /*
     @GetMapping("/{name}")
     public ResponseEntity<String> SearchAttraction(@PathVariable String name) {
-        return new ResponseEntity<>(touristService.getTourName(name), HttpStatus.OK);
+        return new ResponseEntity<>(touristService.getTourName(name), HttpStatus.OK); //--------old
     }
-    //----mapping for form page----------------
+
+     */
+
+    @GetMapping("/{name}")
+    public String getAttractionByName(@PathVariable String name, Model model) {
+        TouristAttraction attraction = touristService.getTourName(name);
+        model.addAttribute("attraction", attraction);
+        return "attraction";
+    }
+
+
+    //--------------------------------------------mapping for form page----------------
     @GetMapping("/createNewAttraction")
     public String getAddNewAttraction(Model model){
         List<Tags> publishedTags = Arrays.asList(Tags.values());
@@ -52,23 +65,31 @@ public class TouristController {
 //------------------POST MAPPINGS-----------------------
 
     //------------------------ADD NEW ATTRACTION--------------------------------
-    @PostMapping("/addNewAttraction")
-    public String addNewAttraction(@ModelAttribute("attraction") TouristAttraction tourAttraction, @RequestParam("tags")List<Tags>tags){
-        tourAttraction.setTags(tags);
-        // TouristAttraction t = touristService.addNewAttraction(attraction);
-        touristService.addNewAttraction(tourAttraction);
-        return "redirect:/attractions";
 
+    @PostMapping("/addNewAttraction")
+    public String addNewAttraction(@ModelAttribute("tourAttraction") TouristAttraction tourAttraction, @RequestParam("tags")List<Tags>tags){
+        tourAttraction.setTags(tags);
+        TouristAttraction result = touristService.addNewAttraction(tourAttraction);
+        return "redirect:/attractions";
     }
     //-------------------------ADD------------------
+    /*
     @PostMapping("/add")
     public ResponseEntity<Boolean>
-    addAttraction(@RequestParam(value = "attName", defaultValue = "tivoli")
+    addAttraction(@RequestParam(value = "attName", defaultValue = "tivoli") //--------------------old
                   String name,@RequestParam(value = "attDesc", defaultValue = "empty")
                   String desc, @RequestParam String city, @RequestParam List<Tags> tags){
         TouristAttraction t = new TouristAttraction(name,desc,city,tags);
         return new ResponseEntity<>(touristService.addNewAttraction(t), HttpStatus.OK);
     }
+    */
+
+
+@PostMapping("/add")
+public String addAttraction(@ModelAttribute TouristAttraction attraction) {
+    touristService.addNewAttraction(attraction);
+    return "redirect:/attractions";
+}
 
     //-------------------------DELETE-------------------------------
     /*
@@ -77,7 +98,8 @@ public class TouristController {
         return new ResponseEntity(touristService.removeTourAttraction(name), HttpStatus.OK);
     }
      */
-    @PostMapping("/delete/{name}")
+    /*
+    @PostMapping("/delete/{name}") //-----------old
     public String deleteAttraction(@PathVariable String name) {
         if (name != null) {
             boolean result = touristService.removeTourAttraction(name);
@@ -86,8 +108,18 @@ public class TouristController {
             return "error";
         }
     }
+
+
+     */
+    @PostMapping("/delete/{name}")
+public String deleteAttraction(@PathVariable String name) {
+    TouristAttraction result = touristService.deleteAttraction(name);
+    return "redirect:/attractions";
+}
+
     //---------------------------UPDATE-----------------------------
-    @PostMapping("{name}/update")
+    /*
+    @PostMapping("{name}/update") //----------------old
     public ResponseEntity<TouristAttraction>
     updateAttraction(@RequestParam(value = "attName", defaultValue = "tivoli")
                      String name,@RequestParam(value = "attDesc", defaultValue = "tom")
@@ -96,6 +128,16 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc,city,tags);
         return new ResponseEntity<>(touristService.updateTourAttraction(t), HttpStatus.OK);
     }
+*/
+    @PostMapping("{name}/update")
+public String updateAttraction(@PathVariable String name, Model model) {
+    TouristAttraction attraction = touristService.getTourName(name);
+    model.addAttribute("attraction", attraction);
+    return "updateAttraction";
+}
 
     }
-}
+
+
+
+

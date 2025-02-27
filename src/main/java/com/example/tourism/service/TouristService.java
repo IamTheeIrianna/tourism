@@ -9,30 +9,32 @@ import java.util.List;
 @Service
 public class TouristService {
 
+    private final TouristRepository touristRepository;
     private TouristRepository repository;
 
-    public TouristService(TouristRepository repository){
+    public TouristService(TouristRepository repository, TouristRepository touristRepository){
         this.repository = repository;
+        this.touristRepository = touristRepository;
     }
     //------------------FIND ALL LIST
     public List<TouristAttraction> getAllTouristAttractionsList(){
         return repository.getAllTouristAttractionsList();
     }
+
     //------------------FIND BY NAME--------------
-    public TouristAttraction findTourAttractionName(String name){
-        TouristAttraction findTourAttraction = null;
-        for(TouristAttraction tourAttraction : repository.getAllTouristAttractionsList()){
-            if(tourAttraction.getName().equalsIgnoreCase(name)){
-                findTourAttraction = tourAttraction;
-            }
-        }
-        return findTourAttraction;
+    public String getTourName(String name) {
+
+        return repository.getTourName(name);
+
     }
-
-
     //------------------ADD
-    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction){
-        return repository.addNewAttraction(tourAttraction);
+    public boolean addNewAttraction(TouristAttraction tourAttraction) {
+        if (touristRepository.getTourName(tourAttraction.getName()) != null) {
+            return false;
+        }
+
+        repository.addNewAttraction(tourAttraction);
+        return true;
     }
     //------------------UPDATE
     public TouristAttraction updateTourAttraction(TouristAttraction tourAttraction){
@@ -40,7 +42,7 @@ public class TouristService {
     }
     //------------------REMOVE
     /*public TouristAttraction removeTourAttraction(String name){
-        TouristAttraction tourAttraction = findTourAttractionName(name);
+        TouristAttraction tourAttraction = getTourName(name);
         return repository.removeTourAttraction(tourAttraction);
     }
     */

@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HomePage</title>
-    <link rel="stylesheet" href="style.css">
-
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<nav th:replace="fragments/navigation :: navbar"></nav>
     <nav>
         <a href="/attractions">
             <button>Tourist attractions overview</button>
@@ -12,9 +14,11 @@
         <a href="/attractions/createNewAttraction">
             <button>Add new tourist attraction</button> </a><!-- redirect to form page -->
     </nav>
-</head>
-//----------------------
-<body>
+
+<div class="container">
+
+    <main class="welcome-box">
+
 <h1>Welcome to 'The TouristGuide'</h1>
 <p>Your guide to the capital of Denmark, Copenhagen.
 <p>Here you can expect to find suggestions for your visit.</p>
@@ -32,5 +36,4 @@
 <footer>
     <p>Contact: coming soon! </p>
 </footer>
-</body>
 </html>

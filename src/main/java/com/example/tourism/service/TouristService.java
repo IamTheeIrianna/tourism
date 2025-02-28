@@ -1,5 +1,6 @@
 package com.example.tourism.service;
 
+import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.stereotype.Service;
 import com.example.tourism.repository.TouristRepository;
@@ -18,38 +19,35 @@ public class TouristService {
     }
     //------------------FIND ALL LIST
     public List<TouristAttraction> getAllTouristAttractionsList(){
-        return repository.getAllTouristAttractionsList();
+        return repository.getTourAttractionsList();
     }
 
     //------------------FIND BY NAME--------------
-    public String getTourName(String name) {
+    public TouristAttraction getTourName(String name) {
+TouristAttraction result = repository.getTourName(name);
 
-        return repository.getTourName(name);
-
+        return result;
     }
     //------------------ADD
-    public boolean addNewAttraction(TouristAttraction tourAttraction) {
+    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction) {
+        TouristAttraction exist = repository.getTourName(tourAttraction.getName());
         if (touristRepository.getTourName(tourAttraction.getName()) != null) {
-            return false;
-        }
+            return null;
 
-        repository.addNewAttraction(tourAttraction);
-        return true;
+        }
+        return repository.addNewAttraction(tourAttraction);
+
     }
     //------------------UPDATE
-    public TouristAttraction updateTourAttraction(TouristAttraction tourAttraction){
-        return repository.updateTourAttraction(tourAttraction);
+    public TouristAttraction updateAttraction(TouristAttraction newAttraction){
+        TouristAttraction outDated = repository.getTourName(newAttraction.getName());
+        return repository.updateAttraction(outDated,newAttraction);
     }
-    //------------------REMOVE
-    /*public TouristAttraction removeTourAttraction(String name){
-        TouristAttraction tourAttraction = getTourName(name);
-        return repository.removeTourAttraction(tourAttraction);
+    public TouristAttraction deleteAttraction(String name){
+        TouristAttraction exist = repository.getTourName(name);
+        return repository.deleteAttraction(exist);
     }
-    */
-
-    public boolean removeTourAttraction(String name){
-        return repository.removeTourAttraction(name);
-    }
-
-
+public List<Tags>getTagsName(String name){
+        return repository.getTagsName(name);
+}
 }

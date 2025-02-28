@@ -26,7 +26,7 @@ class TouristControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void getAllTouristAttractionsList() {
+    void getTourAttractionsList() {
     }
 
     @Test

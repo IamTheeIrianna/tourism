@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/tags.css}">
+</head>
+<header>
+    <h1><a th:href="@{/}">Tags</a></h1>
+</header>
+<nav th:replace="fragments/navigation :: navbar"></nav>
+<div class="container">
+    <main>
+        <div class="button">
+            <a th:href="@{/attractions}">
+                <button type="button">Back</button>
+            </a>
+        </div>
+    </main>
+</div>
+</head>
+
+</html>

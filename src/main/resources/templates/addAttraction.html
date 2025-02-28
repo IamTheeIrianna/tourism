@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <h1>Submit a Tourist Attraction</h1>
+    <h1>Edit this attraction</h1>
 </header>
 <!-----------------------NAME---------------------------------->
 <form th:action="@{/attractions/addNewAttraction}" th:method="post" th:object="${attraction}" >
@@ -25,7 +25,7 @@
 
     <!---------------------TAGS------------------------------------>
     <label>Tags:</label>
-    <div th:each="Tag : ${tags}">
+    <div th:each="tag : ${publishedTags}">
         <input type="checkbox" th:field="*{tags}" th:value="${tag}">
         <span th:text="${tag}"></span><br>
     </div>

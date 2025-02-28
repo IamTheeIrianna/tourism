@@ -7,6 +7,7 @@ import com.example.tourism.service.TouristService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.HTML;
 import java.util.Arrays;
 import java.util.List;
 //Opret en TouristController klasse i controller package med annoteringen @Controller, samt @RequestMapping(”attractions”).
@@ -120,7 +121,8 @@ public class TouristController {
 
     //---------------------------UPDATE-----------------------------
     @PostMapping("{name}/update")
-    public String updateAttraction(@ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags")List<Tags> tags) {
+    public String updateAttraction(Model model, @ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags")List<Tags> tags) {
+
         newAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(newAttraction);
         return "redirect:/attractions";
@@ -148,6 +150,8 @@ public class TouristController {
        TouristAttraction r = touristService.getTourName(name);
         if (r!=null)
         {
+            List<Tags> publishedTags = Arrays.asList(Tags.values());
+            model.addAttribute("publishedTags", publishedTags);
             model.addAttribute("preAttraction", r);
             return "edit-attraction";
         }

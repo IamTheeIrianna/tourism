@@ -67,6 +67,7 @@ public class TouristController {
     public String addNewAttraction(@ModelAttribute("tourAttraction") TouristAttraction tourAttraction, @RequestParam("tags")List<Tags>tags){
         tourAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(tourAttraction);
+        System.out.println(result);
         return "redirect:/attractions";
     }
     //-------------------------ADD------------------
@@ -90,9 +91,10 @@ public class TouristController {
 }
 
     //-------------------------DELETE-------------------------------
-    @PostMapping("/delete/{name}")
+    @PostMapping("/{name}/delete")
     public String deleteAttraction(@PathVariable String name) {
-        TouristAttraction result = touristService.deleteAttraction(name);
+        TouristAttraction result = touristService.deleteAttraction(name.toLowerCase());
+        System.out.println("hit");
         return "redirect:/attractions";
     /*
     @PostMapping("delete/{name}")
@@ -133,8 +135,25 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc,city,tags);
         return new ResponseEntity<>(touristService.updateTourAttraction(t), HttpStatus.OK);
     }
+
+
 */
+
     }
+
+    @GetMapping("/{name}/edit")
+    public String edit(@PathVariable String name, Model model)
+
+    {
+       TouristAttraction r = touristService.getTourName(name);
+        if (r!=null)
+        {
+            model.addAttribute("attraction", r);
+            return "edit-attraction";
+        }
+        return "attractions";
+    }
+
     @GetMapping("{name}/tags")
     public String getTagsName(@PathVariable String name, Model model){
         TouristAttraction attraction = touristService.getTourName(name);

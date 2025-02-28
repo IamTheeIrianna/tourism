@@ -14,6 +14,15 @@
     <tr>
         <th style="width:20%" th:text="${attraction.name}"></th>
         <th style="width:50%" th:text="${attraction.description}"></th>
+        <th style="width:5%">
+            <a th:href="|attractions/${attraction.name}/delete|">
+            <button type="button">delete</button>
+        </a></th>
+        <th style="width:5%">
+            <a th:href="|attractions/${attraction.name}/edit|">
+                <button type="button">edit</button>
+            </a></th>
+
     </tr>
 </table>
 

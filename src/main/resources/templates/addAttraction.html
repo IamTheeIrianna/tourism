@@ -25,7 +25,7 @@
 
     <!---------------------TAGS------------------------------------>
     <label>Tags:</label>
-    <div th:each="tag : ${tags}">
+    <div th:each="Tag : ${tags}">
         <input type="checkbox" th:field="*{tags}" th:value="${tag}">
         <span th:text="${tag}"></span><br>
     </div>

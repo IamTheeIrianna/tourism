@@ -6,16 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
-<div class="button">
-    <a th:href="@{/attractions}">
-        <button type="button">Tourist Attractions</button>
-    </a>
-</div>
-<div class="button">
-    <a th:href="@{/}">
-        <button type="button">Home</button>
-    </a>
-</div>
+<nav th:replace="fragments/navigation :: navbar"></nav>
 
 <header>
     <h1>Submit a Tourist Attraction</h1>

@@ -9,10 +9,14 @@
     <link rel="stylesheet" th:ref="@{/css/attractionsList.css}">
 </head>
 <body>
+<div class="button">
+    <a th:href="@{/}">
+        <button type="button">Home</button>
+    </a>
+</div>
 <header>
-    <h1><a th:href="@{/}">Tourist Attractions</a></h1>
+    <h1> Tourist Attractions </h1>
 </header>
-    <nav th:replace="fragments/navigation :: navbar"></nav>
 <main>
     <table>
         <thead>
@@ -21,29 +25,24 @@
             <th>Description</th>
             <th> City</th>
             <th>Tags</th>
-            <th>Update</th>
-            <th> Add new attraction</th>
+            <th>More info</th>
         </tr>
         </thead>
+        <tbody>
         <tr th:each="attraction : ${attractions}">
-
+            <td th:text="${attraction.name}"/>
+            <td th:text="${attraction.description}"/>
+            <td th:text="${attraction.city}"/>
+            <td><a th:href="@{/attractions/{name}/tags(name=${attraction.name})}">Tags</a></td>
+            <td><a th:href="@{/attractions/{name}(name=${attraction.name})}">View</a></td>
         </tr>
+        </tbody>
     </table>
 </main>
 
-<table style="width:90%" th:each="attraction : ${attractions}">
-    <td th:text="${attraction.name}"/>
-    <tr>
-        <th style="width:20%" th:text="${attraction.name}"></th>
-        <th style="width:50%" th:text="${attraction.description}"></th>
-        <td th:text="${attraction.description}"/>
-        <td th:text="${attraction.city}"/>
-        <td><a th:href="@{/attractions/{name}/tags(name=${attraction.name})}">Tags</a></td>
-    </tr>
-</table>
 <div class="button">
-    <a th:href="@{/}">
-        <button type="button">Return</button>
+    <a th:href="@{/attractions/createNewAttraction}">
+            <button type="button">Create New Attraction</button>
     </a>
 </div>
 </body>

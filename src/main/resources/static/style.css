@@ -10,7 +10,12 @@
     border-radius: 50px;
     text-align: center;
 }
-
+h2{
+    text-align: center;
+}
+h5{
+    text-align: center;
+}
 body{background-color: #3a8000;}
 h1{color: black; text-align: center;}
 

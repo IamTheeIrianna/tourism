@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
+<nav th:replace="fragments/navigation :: navbar"></nav>
+
 <header>
     <h1>Submit a Tourist Attraction</h1>
 </header>
@@ -25,14 +27,14 @@
 
     <!---------------------TAGS------------------------------------>
     <label>Tags:</label>
-    <div th:each="tag : ${tags}">
-        <input type="checkbox" th:field="*{tags}" th:value="${tag}">
-        <span th:text="${tag}"></span><br>
+    <div th:each="tag : ${publishedTags}">
+        <input type="checkbox" th:field="*{tags}" th:value="${tag}" id="${'tag-' + tag}"/>
+        <label th:text="${tag}" th:for="${'tag-' + tag}" ></label><br>
     </div>
 
     <!-----------------SUBMIT---------------------------------------->
     <button type="submit" value="Save">Submit</button>
-    <a href="/attractions" th:href="@{/attractions}">Return</a>
+
 </form>
 </body>
 </html>

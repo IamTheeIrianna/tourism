@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<nav th:replace="fragments/navigation :: navbar"></nav>
+
     <nav>
         <a href="/attractions">
             <button>Tourist attractions overview</button>
@@ -18,22 +18,18 @@
 <div class="container">
 
     <main class="welcome-box">
-
-<h1>Welcome to 'The TouristGuide'</h1>
-<p>Your guide to the capital of Denmark, Copenhagen.
-<p>Here you can expect to find suggestions for your visit.</p>
+<h2>Welcome to 'The TouristGuide'</h2>
+        <h5>Your guide to the capital of Denmark, Copenhagen.</h5>
+        <p>
+            Here you can expect to find suggestions for your visit.
+    <br>
     Hidden gems, public tourist attractions and more.
-<h3>Choose which tourist attraction you'd like to preview: </h3>
-<p>
-<ul>
-    <li><div class="attractions">
-        <a href="/attractions/tivoli">Tivoli</a>
-    </div></li>
-    <li><div class="attractions">
-        <a href="/attractions/kongens%20have">Kongens Have</a>
-    </div></li>
-</ul>
+</p>
+    </main>
+</div>
+
+
 <footer>
-    <p>Contact: coming soon! </p>
+    Contact: coming soon!
 </footer>
 </html>

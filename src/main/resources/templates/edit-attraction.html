@@ -12,21 +12,21 @@
 <!-----------------------NAME---------------------------------->
 <form th:action="@{/attractions/addNewAttraction}" th:method="post" th:object="${attraction}" >
     <label>Name:</label>
-    <input type="text" th:field="*{attraction.name}" id="name" required><br>
+    <input type="text" th:field="${preAttraction.name}" id="name" required readonly><br>
 
     <!------------------------DESCRIPTION--------------------------------->
     <label for="description">description:</label>
-    <textarea rows="4" cols="30" th:field="*{attraction.description}" id="description" required></textarea><br>
+    <textarea rows="4" cols="30" th:field="${preAttraction.description}" id="description" required></textarea><br>
 
     <!-------------------CITY-------------------------------------->
     <label for="city"> City:</label>
-    <input type="text" th:field="*{attraction.city}" id="city" required><br>
+    <input type="text" th:field="${preAttraction.city}" id="city" required><br>
 
 
     <!---------------------TAGS------------------------------------>
     <label>Tags:</label>
     <div th:each="Tag : ${tags}">
-        <input type="checkbox" th:field="*{attraction.tags}" th:value="${tag}">
+        <input type="checkbox" th:field="${preAttraction.tags}" th:value="${tag}">
         <span th:text="${tag}"></span><br>
     </div>
 

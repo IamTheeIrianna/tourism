@@ -1,6 +1,8 @@
 package com.example.tourism.controller;
 
 import com.example.tourism.model.Tags;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import com.example.tourism.model.TouristAttraction;
 import com.example.tourism.service.TouristService;
@@ -35,10 +37,11 @@ public class TouristController {
 
     //----------------------------SEARCH by name----------------------------
     @GetMapping("/{name}")
-    public String getAttractionByName(@PathVariable String name, Model model) {
+    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getTourName(name);
-        model.addAttribute("attraction", attraction);
-        return "attraction";
+        //model.addAttribute("attraction", attraction);'
+
+        return new ResponseEntity<>(attraction, HttpStatus.OK);
     /*
     @GetMapping("/{name}")
     public ResponseEntity<String> SearchAttraction(@PathVariable String name) {
@@ -92,7 +95,7 @@ public class TouristController {
 }
 
     //-------------------------DELETE-------------------------------
-    @PostMapping("/{name}/delete")
+    @GetMapping("/{name}/delete")
     public String deleteAttraction(@PathVariable String name) {
         TouristAttraction result = touristService.deleteAttraction(name.toLowerCase());
         System.out.println("hit");

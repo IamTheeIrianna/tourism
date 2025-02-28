@@ -39,6 +39,26 @@
         </tbody>
     </table>
 </main>
+<h1>Tourist Attractions</h1>
+<table style="width:90%" th:each="attraction : ${attractions}">
+    <tr>
+        <th style="width:20%" th:text="${attraction.name}"></th>
+        <th style="width:50%" th:text="${attraction.description}"></th>
+        <th style="width:5%">
+            <a th:href="|attractions/${attraction.name}/delete|">
+            <button type="button">delete</button>
+        </a></th>
+        <th style="width:5%">
+            <a th:href="|attractions/${attraction.name}/edit|">
+                <button type="button">edit</button>
+            </a></th>
+        <th style="width:5%">
+            <a th:href="|attractions/${attraction.name}|">
+                <button type="button">details</button>
+            </a></th>
+
+    </tr>
+</table>
 
 <div class="button">
     <a th:href="@{/attractions/createNewAttraction}">

@@ -148,7 +148,7 @@ public class TouristController {
        TouristAttraction r = touristService.getTourName(name);
         if (r!=null)
         {
-            model.addAttribute("attraction", r);
+            model.addAttribute("preAttraction", r);
             return "edit-attraction";
         }
         return "attractions";

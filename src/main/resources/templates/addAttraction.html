@@ -9,7 +9,7 @@
 <nav th:replace="fragments/navigation :: navbar"></nav>
 
 <header>
-    <h1>Submit a Tourist Attraction</h1>
+    <h1>Edit this attraction</h1>
 </header>
 <!-----------------------NAME---------------------------------->
 <form th:action="@{/attractions/addNewAttraction}" th:method="post" th:object="${attraction}" >
@@ -34,7 +34,7 @@
 
     <!-----------------SUBMIT---------------------------------------->
     <button type="submit" value="Save">Submit</button>
-
+    <a href="/attractions" th:href="@{/attractions}">Return</a>
 </form>
 </body>
 </html>

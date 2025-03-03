@@ -1,12 +1,15 @@
 package com.example.tourism.controller;
 
 import com.example.tourism.model.Tags;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import com.example.tourism.model.TouristAttraction;
 import com.example.tourism.service.TouristService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.HTML;
 import java.util.Arrays;
 import java.util.List;
 //Opret en TouristController klasse i controller package med annoteringen @Controller, samt @RequestMapping(”attractions”).
@@ -34,10 +37,11 @@ public class TouristController {
 
     //----------------------------SEARCH by name----------------------------
     @GetMapping("/{name}")
-    public String getAttractionByName(@PathVariable String name, Model model) {
+    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getTourName(name);
-        model.addAttribute("attraction", attraction);
-        return "attraction";
+        //model.addAttribute("attraction", attraction);'
+
+        return new ResponseEntity<>(attraction, HttpStatus.OK);
     /*
     @GetMapping("/{name}")
     public ResponseEntity<String> SearchAttraction(@PathVariable String name) {
@@ -67,6 +71,7 @@ public class TouristController {
     public String addNewAttraction(@ModelAttribute("tourAttraction") TouristAttraction tourAttraction, @RequestParam("tags")List<Tags>tags){
         tourAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(tourAttraction);
+        System.out.println(result);
         return "redirect:/attractions";
     }
     //-------------------------ADD------------------
@@ -90,9 +95,10 @@ public class TouristController {
 }
 
     //-------------------------DELETE-------------------------------
-    @PostMapping("/delete/{name}")
+    @GetMapping("/{name}/delete")
     public String deleteAttraction(@PathVariable String name) {
-        TouristAttraction result = touristService.deleteAttraction(name);
+        TouristAttraction result = touristService.deleteAttraction(name.toLowerCase());
+        System.out.println("hit");
         return "redirect:/attractions";
     /*
     @PostMapping("delete/{name}")
@@ -118,7 +124,8 @@ public class TouristController {
 
     //---------------------------UPDATE-----------------------------
     @PostMapping("{name}/update")
-    public String updateAttraction(@ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags")List<Tags> tags) {
+    public String updateAttraction(Model model, @ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags")List<Tags> tags) {
+
         newAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(newAttraction);
         return "redirect:/attractions";
@@ -133,8 +140,27 @@ public class TouristController {
         TouristAttraction t = new TouristAttraction(name, desc,city,tags);
         return new ResponseEntity<>(touristService.updateTourAttraction(t), HttpStatus.OK);
     }
+
+
 */
+
     }
+
+    @GetMapping("/{name}/edit")
+    public String edit(@PathVariable String name, Model model)
+
+    {
+       TouristAttraction r = touristService.getTourName(name);
+        if (r!=null)
+        {
+            List<Tags> publishedTags = Arrays.asList(Tags.values());
+            model.addAttribute("publishedTags", publishedTags);
+            model.addAttribute("preAttraction", r);
+            return "edit-attraction";
+        }
+        return "attractions";
+    }
+
     @GetMapping("{name}/tags")
     public String getTagsName(@PathVariable String name, Model model){
         TouristAttraction attraction = touristService.getTourName(name);

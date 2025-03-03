@@ -24,8 +24,6 @@ public List<TouristAttraction> getTourAttractionsList() {
     private void createNewTourAttraction(){
         tourAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. ", "Copenhagen", new ArrayList()));
         tourAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen.", "Copenhagen", new ArrayList()));
-        tourAttractionsList.add(new TouristAttraction(" ", " ", "Copenhagen", new ArrayList()));
-        tourAttractionsList.add(new TouristAttraction(" ", " ", "Copenhagen", new ArrayList()));
 
     }
     //-----------------------C. add/create new tourist attraction method

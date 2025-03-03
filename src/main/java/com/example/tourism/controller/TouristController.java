@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.swing.text.html.HTML;
 import java.util.Arrays;
 import java.util.List;
+
 //Opret en TouristController klasse i controller package med annoteringen @Controller, samt @RequestMapping(”attractions”).
 //Lav nedenstående CRUD endpoints med funktionalitet, der alle returnerer et ResponseEntity.
 @Controller
@@ -56,10 +57,10 @@ public class TouristController {
 
     //--------------------------------------------mapping for form page----------------
     @GetMapping("/createNewAttraction")
-    public String getAddNewAttraction(Model model){
+    public String getAddNewAttraction(Model model) {
         List<Tags> publishedTags = Arrays.asList(Tags.values());
-        model.addAttribute("publishedTags",publishedTags);
-        model.addAttribute("attraction",new TouristAttraction());
+        model.addAttribute("publishedTags", publishedTags);
+        model.addAttribute("attraction", new TouristAttraction());
         return "addAttraction";
     }
 
@@ -68,12 +69,13 @@ public class TouristController {
     //------------------------ADD NEW ATTRACTION--------------------------------
 
     @PostMapping("/addNewAttraction")
-    public String addNewAttraction(@ModelAttribute("tourAttraction") TouristAttraction tourAttraction, @RequestParam("tags")List<Tags>tags){
+    public String addNewAttraction(@ModelAttribute("tourAttraction") TouristAttraction tourAttraction, @RequestParam("tags") List<Tags> tags) {
         tourAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(tourAttraction);
         System.out.println(result);
         return "redirect:/attractions";
     }
+
     //-------------------------ADD------------------
     @PostMapping("/add")
     public String addAttraction(@ModelAttribute TouristAttraction attraction) {
@@ -91,8 +93,7 @@ public class TouristController {
     */
 
 
-
-}
+    }
 
     //-------------------------DELETE-------------------------------
     @GetMapping("/{name}/delete")
@@ -120,11 +121,11 @@ public class TouristController {
 
      */
 
-}
+    }
 
     //---------------------------UPDATE-----------------------------
     @PostMapping("{name}/update")
-    public String updateAttraction(Model model, @ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags")List<Tags> tags) {
+    public String updateAttraction(Model model, @ModelAttribute("tourAttraction") TouristAttraction newAttraction, @RequestParam("tags") List<Tags> tags) {
 
         newAttraction.setTags(tags);
         TouristAttraction result = touristService.updateAttraction(newAttraction);
@@ -147,12 +148,9 @@ public class TouristController {
     }
 
     @GetMapping("/{name}/edit")
-    public String edit(@PathVariable String name, Model model)
-
-    {
-       TouristAttraction r = touristService.getTourName(name);
-        if (r!=null)
-        {
+    public String edit(@PathVariable String name, Model model) {
+        TouristAttraction r = touristService.getTourName(name);
+        if (r != null) {
             List<Tags> publishedTags = Arrays.asList(Tags.values());
             model.addAttribute("publishedTags", publishedTags);
             model.addAttribute("preAttraction", r);
@@ -162,12 +160,12 @@ public class TouristController {
     }
 
     @GetMapping("{name}/tags")
-    public String getTagsName(@PathVariable String name, Model model){
+    public String getTagsName(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getTourName(name);
-        model.addAttribute("", attraction);
+        model.addAttribute("att", attraction);
         return "tags";
     }
-    }
+}
 
 
 

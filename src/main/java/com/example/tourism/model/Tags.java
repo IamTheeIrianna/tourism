@@ -4,7 +4,7 @@ public enum Tags {
     FREE,
     MUSEUM,
     THEMEPARK,
-    WATER PARK,
+    WATERPARK,
     NATURE,
     GARDENS,
     RESTAURANT,

@@ -6,9 +6,10 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/tags.css}">
 </head>
+<body>
 <header>
     <h1>
-        <a th:text="|${att.name}'s tags|"></a>
+        <a th:text="${att.name + '\'s tags'}"></a>
     </h1>
 </header>
 <nav th:replace="fragments/navigation :: navbar"></nav>
@@ -24,6 +25,5 @@
         </div>
     </main>
 </div>
-</head>
-
+</body>
 </html>

@@ -63,3 +63,4 @@ jobs:
           app-name: 'TouristGuide2025'
           slot-name: 'Production'
           package: '*.jar'
+          

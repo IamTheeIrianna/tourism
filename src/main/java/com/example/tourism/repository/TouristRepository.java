@@ -2,6 +2,7 @@ package com.example.tourism.repository;
 //b.Opret klassen TouristRepository i repository package med annoteringen @Repository.
 import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
+
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class TouristRepository {
+
     //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
     List<TouristAttraction>tourAttractionsList;
 
@@ -65,3 +67,4 @@ public List<TouristAttraction> getTourAttractionsList() {
         return null;
     }
 }
+

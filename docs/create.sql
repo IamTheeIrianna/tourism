@@ -54,3 +54,4 @@ CREATE TABLE touristtags (
                                CONSTRAINT `AID` FOREIGN KEY (`attractionID`) REFERENCES `touristattractions` (`attractionID`),
                                CONSTRAINT `TID` FOREIGN KEY (`tagID`) REFERENCES `tags` (`tag_ID`)
 );
+

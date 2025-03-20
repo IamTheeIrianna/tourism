@@ -1,3 +1,4 @@
+use tourismdb;
 INSERT INTO cities (CityName)
 VALUES
     ('Copenhagen'),

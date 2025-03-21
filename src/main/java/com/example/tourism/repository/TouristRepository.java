@@ -1,9 +1,16 @@
 package com.example.tourism.repository;
 //b.Opret klassen TouristRepository i repository package med annoteringen @Repository.
+
 import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 //create , read , update ,deleteTourAttraction
@@ -11,56 +18,75 @@ import java.util.List;
 @Repository
 public class TouristRepository {
 
-    //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
-    List<TouristAttraction>tourAttractionsList;
 
-    public TouristRepository(){
+    //@Value("${spring.datasource.url}")
+    private String dbUrl = System.getenv("PROD_DATABASE_URL");;
+    //@Value("${spring.datasource.username}")
+    private String username = System.getenv("PROD_USERNAME");;
+    //@Value("${spring.datasource.password}")
+    private String password  =  System.getenv("PROD_PASSWORD");
+
+
+    //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
+    List<TouristAttraction> tourAttractionsList;
+    DataSource dataSource = new DriverManagerDataSource(
+            dbUrl, username, password);
+
+    JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+    public TouristRepository() {
         this.tourAttractionsList = new ArrayList<>();
         createNewTourAttraction();
+        String query = """
+
+                """;
     }
-//--------------------------------------------------
-public List<TouristAttraction> getTourAttractionsList() {
-    return tourAttractionsList;
-}
+
+    //--------------------------------------------------
+    public List<TouristAttraction> getTourAttractionsList() {
+        return tourAttractionsList;
+    }
+
     //Opret et par TouristAttraction objekter, som tilføjes til denne ArrayList.
-    private void createNewTourAttraction(){
+    private void createNewTourAttraction() {
         tourAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. ", "Copenhagen", new ArrayList()));
         tourAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen.", "Copenhagen", new ArrayList()));
-
     }
+
     //-----------------------C. add/create new tourist attraction method
     //(C)RUD
-    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction){
+    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction) {
         tourAttractionsList.add(tourAttraction);
         return tourAttraction;
     }
 
-//--------------------get tourist attr name-------------------------
-    public TouristAttraction getTourName(String name){
-        for (TouristAttraction object : tourAttractionsList){
-            if(object.getName().equalsIgnoreCase(name)){
+    //--------------------get tourist attr name-------------------------
+    public TouristAttraction getTourName(String name) {
+        for (TouristAttraction object : tourAttractionsList) {
+            if (object.getName().equalsIgnoreCase(name)) {
                 return object;
             }
         }
         return null;
     }
+
     //------------------------//CR(U)D UPDATE
-    public TouristAttraction updateAttraction(TouristAttraction outDatedTour, TouristAttraction newAttraction){
-    tourAttractionsList.remove(outDatedTour);
-    tourAttractionsList.add(newAttraction);
-    return newAttraction;
+    public TouristAttraction updateAttraction(TouristAttraction outDatedTour, TouristAttraction newAttraction) {
+        tourAttractionsList.remove(outDatedTour);
+        tourAttractionsList.add(newAttraction);
+        return newAttraction;
     }
 
     //---------//CRU(D)-----DELETE---------------------
-    public TouristAttraction deleteAttraction(TouristAttraction tourAttraction){
+    public TouristAttraction deleteAttraction(TouristAttraction tourAttraction) {
         tourAttractionsList.remove(tourAttraction);
         return tourAttraction;
     }
 
-   //--------------------TAGS NAME--------------
-    public List<Tags>getTagsName(String name){
-        for(TouristAttraction touristAttraction : tourAttractionsList){
-            if(touristAttraction.getName().equalsIgnoreCase(name)){
+    //--------------------TAGS NAME--------------
+    public List<Tags> getTagsName(String name) {
+        for (TouristAttraction touristAttraction : tourAttractionsList) {
+            if (touristAttraction.getName().equalsIgnoreCase(name)) {
                 return touristAttraction.getTags();
             }
         }

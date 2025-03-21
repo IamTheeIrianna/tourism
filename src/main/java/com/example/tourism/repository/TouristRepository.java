@@ -6,8 +6,16 @@ import com.example.tourism.model.TouristAttraction;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 //create , read , update ,deleteTourAttraction
@@ -16,12 +24,19 @@ import java.util.List;
 public class TouristRepository {
 
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-    @Value("${spring.datasource.username}")
-    private String username;
-    @Value("${spring.datasource.password}")
-    private String password;
+    private String dbUrl = System.getenv("PROD_DATABASE_URL");
+    private String username = System.getenv("PROD_USERNAME");
+    private String password = System.getenv("PROD_PASSWORD");
+    private DataSource dataSource = dataSource();
+    JdbcTemplate jdbcTemplate;
+
+    private DataSource dataSource() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setUrl(dbUrl);
+        driverManagerDataSource.setUsername(username);
+        driverManagerDataSource.setPassword(password);
+        return driverManagerDataSource;
+    }
 
     //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
     List<TouristAttraction> tourAttractionsList;
@@ -30,11 +45,18 @@ public class TouristRepository {
 
     public TouristRepository() {
         System.out.println(dbUrl);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         this.tourAttractionsList = new ArrayList<>();
         createNewTourAttraction();
-        String query = """
+        String query = "INSERT INTO regions (RegionName, Province) VALUES (?, ?)";
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, "Test");
+            ps.setString(2, "test");
+            return ps;
+        }, keyHolder);
 
-                """;
     }
 
     //--------------------------------------------------

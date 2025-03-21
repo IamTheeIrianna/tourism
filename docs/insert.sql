@@ -1,3 +1,4 @@
+use tourismdb;
 INSERT INTO cities (CityName)
 VALUES
     ('Copenhagen'),
@@ -19,7 +20,7 @@ values
     ('Region of Southern Denmark'),
     ('North Denmark Region');
 
-insert into cities (Province)
+insert into regions (Province)
 values
     ('Copenhagen City'),
     ('Copenhagen Surroundings'),

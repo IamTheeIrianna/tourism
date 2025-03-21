@@ -4,13 +4,10 @@ package com.example.tourism.repository;
 import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
 
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 //create , read , update ,deleteTourAttraction
@@ -19,22 +16,20 @@ import java.util.List;
 public class TouristRepository {
 
 
-    //@Value("${spring.datasource.url}")
-    private String dbUrl = System.getenv("PROD_DATABASE_URL");;
-    //@Value("${spring.datasource.username}")
-    private String username = System.getenv("PROD_USERNAME");;
-    //@Value("${spring.datasource.password}")
-    private String password  =  System.getenv("PROD_PASSWORD");
-
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
 
     //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
     List<TouristAttraction> tourAttractionsList;
-    DataSource dataSource = new DriverManagerDataSource(
-            dbUrl, username, password);
 
-    JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
 
     public TouristRepository() {
+        System.out.println(dbUrl);
         this.tourAttractionsList = new ArrayList<>();
         createNewTourAttraction();
         String query = """

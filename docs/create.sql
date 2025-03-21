@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS tourismdb;
-Create DATABASE touristGuideDB;
+Create DATABASE tourismdb;
 USE tourismdb;
 
 CREATE TABLE cities (

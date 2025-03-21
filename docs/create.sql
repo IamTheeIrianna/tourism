@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS tourismdb;
-Create DATABASE touristGuideDB;
 USE tourismdb;
 
 CREATE TABLE cities (
@@ -18,40 +16,41 @@ CREATE TABLE cities (
 
 
 CREATE TABLE regions (
-                           `RegionID` int NOT NULL AUTO_INCREMENT,
-                           `RegionName` varchar(45) NOT NULL,
-                           `Province` varchar(100) NOT NULL,
-                           PRIMARY KEY (`RegionID`),
-                           UNIQUE KEY `RegionName_UNIQUE` (`RegionName`),
-                           UNIQUE KEY `Province_UNIQUE` (`Province`)
+                         `RegionID` int NOT NULL AUTO_INCREMENT,
+                         `RegionName` varchar(45) NOT NULL,
+                         `Province` varchar(100) NOT NULL,
+                         PRIMARY KEY (`RegionID`),
+                         UNIQUE KEY `RegionName_UNIQUE` (`RegionName`),
+                         UNIQUE KEY `Province_UNIQUE` (`Province`)
 );
 
 CREATE TABLE tags (
-                        `tag_ID` int NOT NULL AUTO_INCREMENT,
-                        `tag_name` varchar(45) NOT NULL,
-                        PRIMARY KEY (`tag_ID`),
-                        UNIQUE KEY `tag_name_UNIQUE` (`tag_name`)
+                      `tag_ID` int NOT NULL AUTO_INCREMENT,
+                      `tag_name` varchar(45) NOT NULL,
+                      PRIMARY KEY (`tag_ID`),
+                      UNIQUE KEY `tag_name_UNIQUE` (`tag_name`)
 );
 
 
 CREATE TABLE touristattractions (
-                                      `attractionID` int NOT NULL AUTO_INCREMENT,
-                                      `attraction_name` varchar(100) NOT NULL,
-                                      `CityName` varchar(45) NOT NULL,
-                                      `CityID` int NOT NULL,
-                                      `Municipality` varchar(45) NOT NULL,
-                                      `Adress` varchar(100) NOT NULL,
-                                      PRIMARY KEY (`attractionID`),
-                                      KEY `CID_idx` (`CityID`),
-                                      CONSTRAINT `CID` FOREIGN KEY (`CityID`) REFERENCES `cities` (`CityID`)
+                                    `attractionID` int NOT NULL AUTO_INCREMENT,
+                                    `attraction_name` varchar(100) NOT NULL,
+                                    `CityName` varchar(45) NOT NULL,
+                                    `CityID` int NOT NULL,
+                                    `Municipality` varchar(45) NOT NULL,
+                                    `Adress` varchar(100) NOT NULL,
+                                    PRIMARY KEY (`attractionID`),
+                                    KEY `CID_idx` (`CityID`),
+                                    CONSTRAINT `CID` FOREIGN KEY (`CityID`) REFERENCES `cities` (`CityID`)
 );
 
 CREATE TABLE touristtags (
-                               `attractionID` int NOT NULL,
-                               `tagID` int NOT NULL,
-                               PRIMARY KEY (`attractionID`,`tagID`),
-                               KEY `TID_idx` (`tagID`),
-                               CONSTRAINT `AID` FOREIGN KEY (`attractionID`) REFERENCES `touristattractions` (`attractionID`),
-                               CONSTRAINT `TID` FOREIGN KEY (`tagID`) REFERENCES `tags` (`tag_ID`)
+                             `attractionID` int NOT NULL,
+                             `tagID` int NOT NULL,
+                             PRIMARY KEY (`attractionID`,`tagID`),
+                             KEY `TID_idx` (`tagID`),
+                             CONSTRAINT `AID` FOREIGN KEY (`attractionID`) REFERENCES `touristattractions` (`attractionID`),
+                             CONSTRAINT `TID` FOREIGN KEY (`tagID`) REFERENCES `tags` (`tag_ID`)
 );
+
 

@@ -1,6 +1,7 @@
 package com.example.tourism.service;
 
-import com.example.tourism.model.Tags;
+import com.example.tourism.model.City;
+import com.example.tourism.model.Tag;
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,24 +10,17 @@ import com.example.tourism.repository.TouristRepository;
 import java.util.List;
 
 
-import com.example.tourism.model.TouristAttraction;
-import com.example.tourism.repository.TouristRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-
 @Service
-@Transactional
+
 public class TouristService {
     private final TouristRepository repository;
 
+    @Autowired
     public TouristService(TouristRepository repository) {
         this.repository = repository;
     }
 
-    public List<TouristAttraction> getAllAttractions() {
+    public List<TouristAttraction> getAllAttractions(){
         return repository.findAll();
     }
 
@@ -38,20 +32,20 @@ public class TouristService {
         repository.addAttraction(attraction);
     }
 
-    public void updateAttraction(String name, TouristAttraction updatedAttraction) {
+    public TouristAttraction updateAttraction(String name, TouristAttraction updatedAttraction) {
         repository.updateAttraction(name, updatedAttraction);
-
+        return updatedAttraction;
     }
 
     public void deleteAttraction(String name) {
         repository.deleteAttraction(name);
     }
 
-    public List<String> getCities() {
+    public List<City> getCities() {
         return repository.getCities();
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return repository.getTags();
     }
 

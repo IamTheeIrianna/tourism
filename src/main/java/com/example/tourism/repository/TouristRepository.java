@@ -1,22 +1,16 @@
 package com.example.tourism.repository;
 //b.Opret klassen TouristRepository i repository package med annoteringen @Repository.
-import RowMappers.TouristAttractionRowMapper;
-import com.example.tourism.model.Tags;
-import com.example.tourism.model.TouristAttraction;
+import com.example.tourism.RowMappers.TouristAttractionRowMapper;
+import com.example.tourism.model.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
 import com.example.tourism.model.TouristAttraction;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class TouristRepository {
@@ -58,12 +52,13 @@ public class TouristRepository {
         jdbcTemplate.update(sql, attractionId, tagId);
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         String sql = "SELECT tagName FROM tags";
-        return jdbcTemplate.queryForList(sql, String.class);
+        return jdbcTemplate.queryForList(sql, Tag.class);
+
     }
-    public List<String> getCities() {
-        String sql = "SELECT CityName FROM cities";
-        return jdbcTemplate.queryForList(sql, String.class);
-}
+    public List<City> getCities() {
+        String sql = "SELECT * FROM cities";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(City.class));
+    }
 }

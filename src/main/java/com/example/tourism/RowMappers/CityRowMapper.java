@@ -1,4 +1,4 @@
-package RowMappers;
+package com.example.tourism.RowMappers;
 import com.example.tourism.model.City;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;

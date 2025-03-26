@@ -1,4 +1,4 @@
-package RowMappers;
+package com.example.tourism.RowMappers;
 
 import com.example.tourism.model.City;
 import com.example.tourism.model.TouristAttraction;
@@ -11,7 +11,7 @@ public class TouristAttractionRowMapper implements RowMapper<TouristAttraction> 
     @Override
     public TouristAttraction mapRow(ResultSet rs, int rowNum) throws SQLException {
         TouristAttraction attraction = new TouristAttraction();
-        attraction.setID(rs.getInt("AttractionID"));
+        attraction.setId(rs.getInt("AttractionID"));
         attraction.setName(rs.getString("AttractionName"));
         attraction.setDescription(rs.getString("AttractionDescription"));
 

@@ -1,4 +1,4 @@
-package RowMappers;
+package com.example.tourism.RowMappers;
 import com.example.tourism.model.Tag;
 import org.springframework.jdbc.core.RowMapper;
 

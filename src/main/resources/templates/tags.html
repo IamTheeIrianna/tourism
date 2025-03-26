@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Tags</title>
@@ -9,15 +9,16 @@
 <body>
 <header>
     <h1>
-        <a th:text="${att.name + '\'s tags'}"></a>
+        <span th:text="${attraction.name + '\'s tags'}"></span>
     </h1>
 </header>
-<nav th:replace="fragments/navigation :: navbar"></nav>
+<nav th:replace="~{fragments/navigation :: navbar}"></nav>
 <div class="container">
     <main>
-        <ul th:each="tag : ${att.tags}">
-            <li th:text="${tag}"></li>
+        <ul th:if="${not #lists.isEmpty(attraction.tags)}">
+            <li th:each="tag : ${attraction.tags}" th:text="${tag}"></li>
         </ul>
+        <p th:unless="${not #lists.isEmpty(attraction.tags)}">No tags for this attraction.</p>
         <div class="button">
             <a th:href="@{/attractions}">
                 <button type="button">Back</button>

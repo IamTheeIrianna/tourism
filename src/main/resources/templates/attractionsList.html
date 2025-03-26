@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tourist Attractions</title>
     <link th:href="@{/main.css}" rel="stylesheet">
     <link rel="stylesheet" th:ref="@{/css/attractionsList.css}">
 </head>
@@ -31,14 +31,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="attraction : ${attractions}">
+        <tr th:each="attraction : ${attractionsList}">
             <td th:text="${attraction.name}"/>
             <td th:text="${attraction.description}"/>
             <td th:text="${attraction.city}"/>
-            <td><a th:href="@{/attractions/{name}/tags(name=${attraction.name})}">Tags</a></td>
+            <td><a th:href="@{/attractions/{name}/getTags(name=${attraction.name})}">Tags</a></td>
             <td><a th:href="@{/attractions/{name}(name=${attraction.name})}">View</a></td>
-            <td><a th:href="|attractions/${attraction.name}/edit|">Edit</a></td>
-            <td><a th:href="|attractions/${attraction.name}/delete|">delete</a></td>
+            <td><a th:href="@{/attractions/{name}/edit(name=${attraction.name})}">Edit</a></td>
+            <td><a th:href="@{/attractions/{name}/delete(name=${attraction.name})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
@@ -46,7 +46,7 @@
 
 
 <div class="button">
-    <a th:href="@{/attractions/createNewAttraction}">
+    <a th:href="@{/attractions/add}">
             <button type="button">Create New Attraction</button>
     </a>
 </div>

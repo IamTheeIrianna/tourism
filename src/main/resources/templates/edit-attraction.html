@@ -2,31 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Tourist Attraction</title>
+    <title>Edit Tourist Attraction</title>
     <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
+<nav th:replace="~{fragments/navigation :: navbar}"></nav>
+
 <header>
-    <h1>Submit a Tourist Attraction</h1>
+    <h1>Edit Tourist Attraction</h1>
 </header>
 <!-----------------------NAME---------------------------------->
-<form th:action="|/attractions/${preAttraction.name}/update|" th:method="post" th:object="${attraction}" >
+<form th:action="@{/attractions/{name}/update(name=${preAttraction.name})}" th:method="post" th:object="${preAttraction}">
     <label>Name:</label>
-    <input type="text" th:field="${preAttraction.name}" id="name" required readonly><br>
+    <input type="text"  th:field="*{name}" id="name" required readonly/><br>
 
     <!------------------------DESCRIPTION--------------------------------->
-    <label for="description">description:</label>
-    <textarea rows="4" cols="30" th:field="${preAttraction.description}" id="description" required></textarea><br>
-
+    <label for="description">Description:</label>
+    <textarea rows="4" cols="30" th:field="*{description}" id="description" required></textarea><br>
     <!-------------------CITY-------------------------------------->
-    <label for="city"> City:</label>
-    <input type="text" th:field="${preAttraction.city}" id="city" required><br>
+    <label for="city">City:</label>
+    <input type="text" th:field="*{city}" id="city" required /><br>
 
 
     <!---------------------TAGS------------------------------------>
+
     <label>Tags:</label>
     <div th:each="tag : ${publishedTags}">
-        <input type="checkbox" th:field="${preAttraction.tags}" th:value="${tag}">
+        <input type="checkbox" th:field="*{tags}" th:value="${tag}" />
         <span th:text="${tag}"></span><br>
     </div>
 

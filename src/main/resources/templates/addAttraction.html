@@ -6,22 +6,27 @@
     <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
-<nav th:replace="fragments/navigation :: navbar"></nav>
+<nav th:replace="~{fragments/navigation :: navbar}"></nav>
+
+
 
 <header>
-    <h1>Edit this attraction</h1>
+    <h1>Add new attraction</h1>
 </header>
 <!-----------------------NAME---------------------------------->
-<form th:action="@{/attractions/addNewAttraction}" th:method="post" th:object="${attraction}" >
+<form th:action="@{/attractions/save}" th:object="${attraction}" method="post">
     <label>Name:</label>
     <input type="text" th:field="*{name}" id="name" required><br>
 
-    <!------------------------DESCRIPTION--------------------------------->
-    <label for="description">description:</label>
-    <textarea rows="4" cols="30" th:field="*{description}" id="description" required></textarea><br>
 
+    <!------------------------DESCRIPTION--------------------------------->
+    <label for="description">Description:</label>
+    <textarea rows="4" cols="30" th:field="*{description}" id="description" required></textarea><br>
     <!-------------------CITY-------------------------------------->
-    <label for="city"> City:</label>
+    <label for="city">City:</label>
+    <select th:field="*{city}">
+        <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+    </select><br>
     <input type="text" th:field="*{city}" id="city" required><br>
 
 

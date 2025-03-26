@@ -26,7 +26,7 @@ public class TouristController {
     public TouristController(TouristService service) {
         this.service = service;
     }
-    @GetMapping("/list")
+    @GetMapping(" ")
     public String getAllTouristAttractionsList(Model model) {
         List<TouristAttraction> touristAttractions = service.getAllAttractions();
         model.addAttribute("attractions", touristAttractions);
@@ -106,17 +106,11 @@ public class TouristController {
         model.addAttribute("tags", service.getTags());
         return "addAttraction";
     }
-
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
         service.createAttraction(attraction);
         return "redirect:/attractions";
     }
 
-    @PostMapping("/add")
-    public String addAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.createAttraction(attraction);
-        return "redirect:/attractions";
-    }
-
 }
+

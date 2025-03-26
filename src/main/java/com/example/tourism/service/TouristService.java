@@ -2,52 +2,60 @@ package com.example.tourism.service;
 
 import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.tourism.repository.TouristRepository;
 
 import java.util.List;
 
+
+import com.example.tourism.model.TouristAttraction;
+import com.example.tourism.repository.TouristRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
+@Transactional
 public class TouristService {
+    private final TouristRepository repository;
 
-    private final TouristRepository touristRepository;
-    private TouristRepository repository;
-
-    public TouristService(TouristRepository repository, TouristRepository touristRepository){
+    public TouristService(TouristRepository repository) {
         this.repository = repository;
-        this.touristRepository = touristRepository;
-    }
-    //------------------FIND ALL LIST
-    public List<TouristAttraction> getAllTouristAttractionsList(){
-        return repository.getTourAttractionsList();
     }
 
-    //------------------FIND BY NAME--------------
-    public TouristAttraction getTourName(String name) {
-TouristAttraction result = repository.getTourName(name);
+    public List<TouristAttraction> getAllAttractions() {
+        return repository.findAll();
+    }
 
-        return result;
+    public TouristAttraction getAttractionByName(String name) {
+        return repository.findByName(name);
     }
-    //------------------ADD
-    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction) {
-        TouristAttraction exist = repository.getTourName(tourAttraction.getName());
-        if (touristRepository.getTourName(tourAttraction.getName()) != null) {
-            return null;
 
-        }
-        return repository.addNewAttraction(tourAttraction);
+    public void createAttraction(TouristAttraction attraction) {
+        repository.addAttraction(attraction);
+    }
+
+    public void updateAttraction(String name, TouristAttraction updatedAttraction) {
+        repository.updateAttraction(name, updatedAttraction);
 
     }
-    //------------------UPDATE
-    public TouristAttraction updateAttraction(TouristAttraction newAttraction){
-        TouristAttraction outDated = repository.getTourName(newAttraction.getName());
-        return repository.updateAttraction(outDated,newAttraction);
+
+    public void deleteAttraction(String name) {
+        repository.deleteAttraction(name);
     }
-    public TouristAttraction deleteAttraction(String name){
-        TouristAttraction exist = repository.getTourName(name);
-        return repository.deleteAttraction(exist);
+
+    public List<String> getCities() {
+        return repository.getCities();
     }
-public List<Tags>getTagsName(String name){
-        return repository.getTagsName(name);
-}
+
+    public List<String> getTags() {
+        return repository.getTags();
+    }
+
+    public void addTagToAttraction(int attractionId, int tagId) {
+        repository.addTagToAttraction(attractionId, tagId);
+    }
 }

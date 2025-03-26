@@ -1,70 +1,69 @@
 package com.example.tourism.repository;
 //b.Opret klassen TouristRepository i repository package med annoteringen @Repository.
+import RowMappers.TouristAttractionRowMapper;
 import com.example.tourism.model.Tags;
 import com.example.tourism.model.TouristAttraction;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
-//create , read , update ,deleteTourAttraction
+
+
+import com.example.tourism.model.TouristAttraction;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class TouristRepository {
+    private final JdbcTemplate jdbcTemplate;
 
-    //Tilføj en ArrayList til opbevaring af data (om ikke så længe skal I arbejde med en rigtig database).
-    List<TouristAttraction>tourAttractionsList;
-
-    public TouristRepository(){
-        this.tourAttractionsList = new ArrayList<>();
-        createNewTourAttraction();
+    public TouristRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-//--------------------------------------------------
-public List<TouristAttraction> getTourAttractionsList() {
-    return tourAttractionsList;
+
+    public List<TouristAttraction> findAll() {
+        String sql = "SELECT attractionName, AttractionDescription, CityID,Adress FROM touristattractions";
+        return jdbcTemplate.query(sql, new TouristAttractionRowMapper());
+    }
+
+    public TouristAttraction findByName(String name) {
+        String sql = "SELECT attractionName, AttractionDescription, CityID, Adress FROM touristattractions WHERE attractionName = ?";
+        return jdbcTemplate.queryForObject(sql, new TouristAttractionRowMapper(), name);
+    }
+
+    public void addAttraction(TouristAttraction attraction) {
+        String sql = "INSERT INTO touristAttractions (attractionName, AttractionDescription, CityID, Adress) VALUES (?, ?, ?,?)";
+        jdbcTemplate.update(sql, attraction.getName(), attraction.getDescription(), attraction.getCity());
+
+
+    }
+
+    public void updateAttraction(String name, TouristAttraction updatedAttraction) {
+        String sql = "UPDATE tourismdb.touristattractions SET Attractiondescription = ?, cityID = ?, Adress=? WHERE attractionName = ?";
+        jdbcTemplate.update(sql, updatedAttraction.getDescription(), updatedAttraction.getCity(), name);
+
+    }
+
+    public void deleteAttraction(String name) {
+        String sql = "DELETE FROM touristAttractions WHERE attractionName = ?";
+        jdbcTemplate.update(sql, name);
+    }
+    public void addTagToAttraction(int attractionId, int tagId) {
+        String sql = "INSERT INTO attractionstags (AttractionID, tagID) VALUES (?, ?)";
+        jdbcTemplate.update(sql, attractionId, tagId);
+    }
+
+    public List<String> getTags() {
+        String sql = "SELECT tagName FROM tags";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+    public List<String> getCities() {
+        String sql = "SELECT CityName FROM cities";
+        return jdbcTemplate.queryForList(sql, String.class);
 }
-    //Opret et par TouristAttraction objekter, som tilføjes til denne ArrayList.
-    private void createNewTourAttraction(){
-        tourAttractionsList.add(new TouristAttraction("Kongens Have", "The kings garden. Find yourself on a stroll of botanical beauty. ", "Copenhagen", new ArrayList()));
-        tourAttractionsList.add(new TouristAttraction("Tivoli", "Amusement park in the center of Copenhagen.", "Copenhagen", new ArrayList()));
-
-    }
-    //-----------------------C. add/create new tourist attraction method
-    //(C)RUD
-    public TouristAttraction addNewAttraction(TouristAttraction tourAttraction){
-        tourAttractionsList.add(tourAttraction);
-        return tourAttraction;
-    }
-
-//--------------------get tourist attr name-------------------------
-    public TouristAttraction getTourName(String name){
-        for (TouristAttraction object : tourAttractionsList){
-            if(object.getName().equalsIgnoreCase(name)){
-                return object;
-            }
-        }
-        return null;
-    }
-    //------------------------//CR(U)D UPDATE
-    public TouristAttraction updateAttraction(TouristAttraction outDatedTour, TouristAttraction newAttraction){
-    tourAttractionsList.remove(outDatedTour);
-    tourAttractionsList.add(newAttraction);
-    return newAttraction;
-    }
-
-    //---------//CRU(D)-----DELETE---------------------
-    public TouristAttraction deleteAttraction(TouristAttraction tourAttraction){
-        tourAttractionsList.remove(tourAttraction);
-        return tourAttraction;
-    }
-
-   //--------------------TAGS NAME--------------
-    public List<Tags>getTagsName(String name){
-        for(TouristAttraction touristAttraction : tourAttractionsList){
-            if(touristAttraction.getName().equalsIgnoreCase(name)){
-                return touristAttraction.getTags();
-            }
-        }
-        return null;
-    }
 }
-
